@@ -1,5 +1,6 @@
 ﻿using FCGProj.Interfaces.Services;
 using FCGProj.Model;
+using FCGProj.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FCGProj.Controllers
@@ -28,10 +29,14 @@ namespace FCGProj.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create(Client client)
+        public IActionResult Create(ClientDTO client)
         {
-            _clientService.Add(client);
-            return CreatedAtAction(nameof(GetById), new { id = client.IdClient }, client);
+            if (client == null)
+                return BadRequest("Preencha as informações do usuário!");
+            var retorno = _clientService.Add(client);
+            if (retorno.Success)
+                return Ok();
+            else return BadRequest(retorno.Error);
         }
     }
 }

@@ -24,17 +24,17 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/Client"
+                "$ref": "#/components/schemas/ClientDTO"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/Client"
+                "$ref": "#/components/schemas/ClientDTO"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/Client"
+                "$ref": "#/components/schemas/ClientDTO"
               }
             }
           }
@@ -136,13 +136,9 @@
   },
   "components": {
     "schemas": {
-      "Client": {
+      "ClientDTO": {
         "type": "object",
         "properties": {
-          "idClient": {
-            "type": "integer",
-            "format": "int32"
-          },
           "name": {
             "type": "string",
             "nullable": true
@@ -163,91 +159,13 @@
             "type": "integer",
             "format": "int32"
           },
-          "clientContacts": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/ClientContact"
-            },
-            "nullable": true
-          },
-          "clientAddresses": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/ClientAddress"
-            },
-            "nullable": true
-          }
-        },
-        "additionalProperties": false
-      },
-      "ClientAddress": {
-        "type": "object",
-        "properties": {
-          "idClientAddress": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "idClient": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "street": {
+          "email": {
             "type": "string",
             "nullable": true
           },
-          "number": {
+          "telefone": {
             "type": "string",
             "nullable": true
-          },
-          "obs": {
-            "type": "string",
-            "nullable": true
-          },
-          "city": {
-            "type": "string",
-            "nullable": true
-          },
-          "state": {
-            "type": "string",
-            "nullable": true
-          },
-          "zipCode": {
-            "type": "string",
-            "nullable": true
-          },
-          "dtCreate": {
-            "type": "string",
-            "format": "date-time"
-          }
-        },
-        "additionalProperties": false
-      },
-      "ClientContact": {
-        "type": "object",
-        "properties": {
-          "idClientContact": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "idClient": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "contactType": {
-            "type": "string",
-            "nullable": true
-          },
-          "contactValue": {
-            "type": "string",
-            "nullable": true
-          },
-          "obs": {
-            "type": "string",
-            "nullable": true
-          },
-          "dtCreate": {
-            "type": "string",
-            "format": "date-time"
           }
         },
         "additionalProperties": false

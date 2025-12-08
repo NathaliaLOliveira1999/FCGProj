@@ -19,7 +19,10 @@ namespace FCGProj.Model
         public DateTime DtCreate { get; set; }
         [Column("IDACCESSPROFILE")]
         public int IdAccessProfile { get; set; }
-        public List<ClientContact?> ClientContacts { get; set; }
+        [Column("EMAIL")]
+        public string Email { get; set; }
+        [Column("TELEFONE")]
+        public string Telefone { get; set; }
         public List<ClientAddress?> ClientAddresses { get; set; }
     }
 }

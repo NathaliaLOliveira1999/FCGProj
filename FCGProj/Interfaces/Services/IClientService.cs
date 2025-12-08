@@ -1,4 +1,5 @@
 ﻿using FCGProj.Model;
+using FCGProj.Models;
 
 namespace FCGProj.Interfaces.Services
 {
@@ -6,6 +7,6 @@ namespace FCGProj.Interfaces.Services
     {
         IEnumerable<Client> GetAll();
         Client? GetById(int id);
-        void Add(Client client);
+        ServiceResult Add(ClientDTO client);
     }
 }

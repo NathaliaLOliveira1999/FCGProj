@@ -19,7 +19,7 @@
     "Parameters": [
       {
         "Name": "client",
-        "Type": "FCGProj.Model.Client",
+        "Type": "FCGProj.Models.ClientDTO",
         "IsRequired": true
       }
     ],

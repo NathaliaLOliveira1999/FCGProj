@@ -7,5 +7,6 @@ namespace FCGProj.Interfaces.Repositories
         IEnumerable<Client> GetAll();
         Client? GetById(int id);
         void Add(Client client);
+        Task<IEnumerable<Client>> GetByUserAsync(string user);
     }
 }

@@ -1,9 +1,11 @@
+using AutoMapper;
 using FCGProj.Interfaces.Repositories;
 using FCGProj.Interfaces.Services;
 using FCGProj.Models;
 using FCGProj.Repositories;
 using FCGProj.Services;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -27,6 +29,8 @@ builder.Services.AddScoped<IClientRepository, ClientRepository>();
 // Register application services (Scoped is appropriate when using DbContext)
 builder.Services.AddScoped<IGameService, GameService>();
 builder.Services.AddScoped<IClientService, ClientService>();
+
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 var app = builder.Build();
 

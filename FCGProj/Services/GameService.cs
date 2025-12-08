@@ -1,7 +1,6 @@
 ﻿using FCGProj.Interfaces.Repositories;
 using FCGProj.Interfaces.Services;
 using FCGProj.Model;
-using FCGProj.Repositories;
 
 namespace FCGProj.Services
 {
