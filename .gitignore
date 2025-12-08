@@ -1,0 +1,10 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/.vs/FCGProj/v17
+/.vs/ProjectEvaluation
+/.vs/FCGProj/FileContentIndex
+/.vs/FCGProj/DesignTimeBuild
+/FCGProj/bin/Debug/net9.0/AutoMapper.dll
+/.vs/FCGProj/CopilotIndices/17.14.1368.60722
