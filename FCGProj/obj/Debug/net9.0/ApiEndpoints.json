@@ -19,7 +19,7 @@
     "Parameters": [
       {
         "Name": "client",
-        "Type": "FCGProj.Models.ClientDTO",
+        "Type": "FCGProj.Models.Dto.ClientDto",
         "IsRequired": true
       }
     ],
@@ -78,6 +78,22 @@
       {
         "Name": "id",
         "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "FCGProj.Controllers.AuthorizationController",
+    "Method": "Login",
+    "RelativePath": "login",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "login",
+        "Type": "FCGProj.Models.Dto.LoginDto",
         "IsRequired": true
       }
     ],

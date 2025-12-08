@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using FCGProj.Model;
 using FCGProj.Models;
+using FCGProj.Models.Dto;
 
 namespace FCGProj.Profiles
 {
@@ -9,12 +10,12 @@ namespace FCGProj.Profiles
         public ClientProfile()
         {
             // Mapeia DTO -> Entidade
-            CreateMap<ClientDTO, Client>()
+            CreateMap<ClientDto, Client>()
                 .ForMember(dest => dest.IdClient, opt => opt.Ignore())
                 .ForMember(dest => dest.ClientAddresses, opt => opt.Ignore());
 
             // (opcional) Entidade -> DTO
-            CreateMap<Client, ClientDTO>();
+            CreateMap<Client, ClientDto>();
         }
     }
 }

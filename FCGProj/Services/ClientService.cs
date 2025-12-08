@@ -2,6 +2,7 @@
 using FCGProj.Interfaces.Repositories;
 using FCGProj.Model;
 using FCGProj.Models;
+using FCGProj.Models.Dto;
 using System.Text.RegularExpressions;
 
 namespace FCGProj.Services
@@ -27,7 +28,7 @@ namespace FCGProj.Services
             return _clientRepository.GetById(id);
         }
 
-        public ServiceResult Add(ClientDTO client)
+        public ServiceResult Add(ClientDto client)
         {
             client.ClientUser = client.ClientUser.ToUpper();
             var returnPassword = this.ValitePassword(client.Password);
@@ -40,10 +41,11 @@ namespace FCGProj.Services
                 return ServiceResult.Fail("E-mail Inválido!" + returnEmail);
             if (client.IdAccessProfile == 0)
                 return ServiceResult.Fail("Preencha o perfil do usuário!");
-            // TODO VALIDAÇAO USER EXISTENTE
-            //var existing = await _clientRepository.GetByUserAsync(client.ClientUser);
-            //if (existing != null && existing.Any())
-            //    return ServiceResult.Fail("clientUser já existe na base!");
+            var existing = _clientRepository.GetByUser(client.ClientUser).ToList();
+            if (existing.Count() > 0)
+                return ServiceResult.Fail("clientUser já existe na base!");
+
+            client.Password = BCrypt.Net.BCrypt.HashPassword(client.Password);
             _clientRepository.Add(_mapper.Map<Client>(client));
             return ServiceResult.Ok(client);
         }

@@ -1,6 +1,7 @@
 ﻿using FCGProj.Interfaces.Services;
 using FCGProj.Model;
 using FCGProj.Models;
+using FCGProj.Models.Dto;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FCGProj.Controllers
@@ -29,7 +30,7 @@ namespace FCGProj.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create(ClientDTO client)
+        public IActionResult Create(ClientDto client)
         {
             if (client == null)
                 return BadRequest("Preencha as informações do usuário!");

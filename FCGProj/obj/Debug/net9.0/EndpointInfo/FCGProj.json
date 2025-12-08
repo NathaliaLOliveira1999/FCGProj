@@ -5,6 +5,37 @@
     "version": "1.0"
   },
   "paths": {
+    "/login": {
+      "post": {
+        "tags": [
+          "Authorization"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LoginDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LoginDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/LoginDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/Client": {
       "get": {
         "tags": [
@@ -24,17 +55,17 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ClientDTO"
+                "$ref": "#/components/schemas/ClientDto"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/ClientDTO"
+                "$ref": "#/components/schemas/ClientDto"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/ClientDTO"
+                "$ref": "#/components/schemas/ClientDto"
               }
             }
           }
@@ -136,7 +167,7 @@
   },
   "components": {
     "schemas": {
-      "ClientDTO": {
+      "ClientDto": {
         "type": "object",
         "properties": {
           "name": {
@@ -150,10 +181,6 @@
           "password": {
             "type": "string",
             "nullable": true
-          },
-          "dtCreate": {
-            "type": "string",
-            "format": "date-time"
           },
           "idAccessProfile": {
             "type": "integer",
@@ -215,6 +242,20 @@
           },
           "active": {
             "type": "boolean"
+          }
+        },
+        "additionalProperties": false
+      },
+      "LoginDto": {
+        "type": "object",
+        "properties": {
+          "clientUser": {
+            "type": "string",
+            "nullable": true
+          },
+          "password": {
+            "type": "string",
+            "nullable": true
           }
         },
         "additionalProperties": false

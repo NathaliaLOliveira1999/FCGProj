@@ -195,3 +195,5 @@ C:\FIAP PROJ\FCGProj\FCGProj\obj\Debug\net9.0\FCGProj.genruntimeconfig.cache
 C:\FIAP PROJ\FCGProj\FCGProj\obj\Debug\net9.0\ref\FCGProj.dll
 C:\FIAP PROJ\FCGProj\FCGProj\bin\Debug\net9.0\AutoMapper.dll
 C:\FIAP PROJ\FCGProj\FCGProj\bin\Debug\net9.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
+C:\FIAP PROJ\FCGProj\FCGProj\bin\Debug\net9.0\BCrypt.Net-Next.dll
+C:\FIAP PROJ\FCGProj\FCGProj\bin\Debug\net9.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll

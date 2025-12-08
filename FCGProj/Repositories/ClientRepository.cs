@@ -24,14 +24,11 @@ namespace FCGProj.Repositories
             _context.SaveChanges();
         }
 
-        public async Task<IEnumerable<Client>> GetByUserAsync(string user)
+        public IEnumerable<Client> GetByUser(string user)
         {
-            if (string.IsNullOrWhiteSpace(user)) return Enumerable.Empty<Client>();
-            var normalized = user.Trim().ToLowerInvariant();
+            var result = _context.Clients.Where(x => x.ClientUser == user.ToUpper()).ToList();
 
-            return await _context.Clients
-                .Where(x => !string.IsNullOrEmpty(x.ClientUser) && x.ClientUser.ToLower().Contains(normalized))
-                .ToListAsync();
+            return result ?? Enumerable.Empty<Client>();
         }
     }
 }
