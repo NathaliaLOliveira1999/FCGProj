@@ -93,7 +93,7 @@
     "Parameters": [
       {
         "Name": "login",
-        "Type": "FCGProj.Models.Dto.LoginDto",
+        "Type": "FCGProj.Models.Dto.UserDto",
         "IsRequired": true
       }
     ],

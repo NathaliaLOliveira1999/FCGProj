@@ -7,7 +7,7 @@ namespace FCGProj.Interfaces.Services
     public interface IClientService
     {
         IEnumerable<Client> GetAll();
-        Client? GetById(int id);
+        ClientDto? GetById(int id);
         ServiceResult Add(ClientDto client);
     }
 }

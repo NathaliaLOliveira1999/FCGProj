@@ -3,18 +3,14 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace FCGProj.Model
 {
-    [Table("CLIENT_USER")]
+    [Table("CLIENT")]
     public class Client
     {
         [Key]
-        [Column("IDCLIENTUSER")]
+        [Column("IDCLIENT")]
         public int IdClient { get; set; }
-        [Column("CLIENTNAME")]
+        [Column("NAME")]
         public string Name { get; set; }
-        [Column("CLIENTUSER")]
-        public string ClientUser { get; set; }
-        [Column("PASSWORD")]
-        public string Password { get; set; }
         [Column("DTCREATE")]
         public DateTime DtCreate { get; set; }
         [Column("IDACCESSPROFILE")]
@@ -23,6 +19,5 @@ namespace FCGProj.Model
         public string Email { get; set; }
         [Column("TELEFONE")]
         public string Telefone { get; set; }
-        public List<ClientAddress?> ClientAddresses { get; set; }
     }
 }

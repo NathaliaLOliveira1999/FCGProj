@@ -1,41 +1,35 @@
-﻿using FCGProj.Models.Dto;
+﻿using FCGProj.Interfaces.Services;
+using FCGProj.Models.Dto;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.IdentityModel.Tokens;
-using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
-using System.Text;
 
 namespace FCGProj.Controllers
 {
     public class AuthorizationController : Controller
     {
-        private readonly IConfiguration _config;
+        private readonly IUserService _userService;
 
-        public AuthorizationController(IConfiguration config)
+        public AuthorizationController(IUserService userService)
         {
-            _config = config;
+            _userService = userService;
         }
 
         [HttpPost("login")]
-        public async Task<IActionResult> Login([FromBody] LoginDto login)
+        public async Task<IActionResult> Login([FromBody] UserDto login)
         {
             // 1️⃣ Buscar usuário pelo e-mail
-            //var user = await _context.Users
-            //    .FirstOrDefaultAsync(x => x.ClientUser == login.ClientUser);
+            var user = _userService.GetByUser(login.UserName);
 
-            //if (user == null)
-            //    return Unauthorized("Usuário não encontrado");
+            if (user == null)
+                return Unauthorized("Usuário não encontrado");
 
-            //// 2️⃣ Validar senha com hash
-            //if (!BCrypt.Net.BCrypt.Verify(login.Password, user.PasswordHash))
-            //    return Unauthorized("Senha incorreta");
+            // 2️⃣ Validar senha com hash
+            if (!BCrypt.Net.BCrypt.Verify(login.PasswordHash, user.PasswordHash))
+                return Unauthorized("Senha incorreta");
 
-            //// 3️⃣ Gerar token JWT
-            //var token = GenerateToken(user);
+            // 3️⃣ Gerar token JWT
+            var token = _userService.GenerateToken(user);
 
-            //return Ok(new { token });
-            return Ok();
+            return Ok(new { token });
         }
     }
 }

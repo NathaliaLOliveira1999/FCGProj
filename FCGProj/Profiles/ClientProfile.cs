@@ -11,11 +11,14 @@ namespace FCGProj.Profiles
         {
             // Mapeia DTO -> Entidade
             CreateMap<ClientDto, Client>()
-                .ForMember(dest => dest.IdClient, opt => opt.Ignore())
-                .ForMember(dest => dest.ClientAddresses, opt => opt.Ignore());
+                .ForMember(dest => dest.IdClient, opt => opt.Ignore());
+            
+            CreateMap<UserDto, User>()
+                .ForMember(dest => dest.IdUser, opt => opt.Ignore());
 
             // (opcional) Entidade -> DTO
             CreateMap<Client, ClientDto>();
+            CreateMap<User, UserDto>();
         }
     }
 }

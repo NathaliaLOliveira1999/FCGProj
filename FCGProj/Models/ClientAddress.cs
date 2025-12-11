@@ -3,11 +3,11 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace FCGProj.Model
 {
-    [Table("CLIENTADDRESS")]
+    [Table("CLIENT_ADDRESS")]
     public class ClientAddress
     {
         [Key]
-        [Column("CLIENTADDRESS")]
+        [Column("IDCLIENTADDRESS")]
         public int IdClientAddress { get; set; }
         [Column("IDCLIENTUSER")]
         public int IdClient { get; set; }

@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("FCGProj")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+b2b3cf833532db4c34f4e2b31a1b02d09930405d")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+c8518ba3ea4e83a31008f8879c4f14a12733fabf")]
 [assembly: System.Reflection.AssemblyProductAttribute("FCGProj")]
 [assembly: System.Reflection.AssemblyTitleAttribute("FCGProj")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

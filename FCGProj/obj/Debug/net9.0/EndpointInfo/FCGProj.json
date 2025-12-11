@@ -14,17 +14,17 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/LoginDto"
+                "$ref": "#/components/schemas/UserDto"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/LoginDto"
+                "$ref": "#/components/schemas/UserDto"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/LoginDto"
+                "$ref": "#/components/schemas/UserDto"
               }
             }
           }
@@ -174,14 +174,6 @@
             "type": "string",
             "nullable": true
           },
-          "clientUser": {
-            "type": "string",
-            "nullable": true
-          },
-          "password": {
-            "type": "string",
-            "nullable": true
-          },
           "idAccessProfile": {
             "type": "integer",
             "format": "int32"
@@ -193,6 +185,9 @@
           "telefone": {
             "type": "string",
             "nullable": true
+          },
+          "user": {
+            "$ref": "#/components/schemas/UserDto"
           }
         },
         "additionalProperties": false
@@ -246,10 +241,10 @@
         },
         "additionalProperties": false
       },
-      "LoginDto": {
+      "UserDto": {
         "type": "object",
         "properties": {
-          "clientUser": {
+          "user": {
             "type": "string",
             "nullable": true
           },

@@ -1,7 +1,6 @@
 ﻿using FCGProj.Interfaces.Repositories;
 using FCGProj.Model;
 using FCGProj.Models;
-using Microsoft.EntityFrameworkCore;
 
 namespace FCGProj.Repositories
 {
@@ -20,15 +19,9 @@ namespace FCGProj.Repositories
 
         public void Add(Client client)
         {
+            client.DtCreate = DateTime.Now;
             _context.Clients.Add(client);
             _context.SaveChanges();
-        }
-
-        public IEnumerable<Client> GetByUser(string user)
-        {
-            var result = _context.Clients.Where(x => x.ClientUser == user.ToUpper()).ToList();
-
-            return result ?? Enumerable.Empty<Client>();
         }
     }
 }

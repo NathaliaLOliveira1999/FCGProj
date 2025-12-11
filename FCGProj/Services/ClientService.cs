@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using FCGProj.Interfaces.Repositories;
+using FCGProj.Interfaces.Services;
 using FCGProj.Model;
 using FCGProj.Models;
 using FCGProj.Models.Dto;
@@ -9,13 +10,15 @@ namespace FCGProj.Services
 {
     public class ClientService : Interfaces.Services.IClientService
     {
-        private readonly IClientRepository _clientRepository;
         private readonly IMapper _mapper;
+        private readonly IClientRepository _clientRepository;
+        private readonly IUserService _userService;
 
-        public ClientService(IClientRepository clientRepository, IMapper mapper)
+        public ClientService(IMapper mapper, IClientRepository clientRepository, IUserService userService)
         {
-            _clientRepository = clientRepository;
             _mapper = mapper;
+            _clientRepository = clientRepository;
+            _userService = userService;
         }
 
         public IEnumerable<Client> GetAll()
@@ -23,29 +26,23 @@ namespace FCGProj.Services
             return _clientRepository.GetAll();
         }
 
-        public Client? GetById(int id)
+        public ClientDto? GetById(int id)
         {
-            return _clientRepository.GetById(id);
+            return _mapper.Map<ClientDto>(_clientRepository.GetById(id));
         }
 
         public ServiceResult Add(ClientDto client)
         {
-            client.ClientUser = client.ClientUser.ToUpper();
-            var returnPassword = this.ValitePassword(client.Password);
+            client.User.UserName = client.User.UserName.ToUpper();
+
             var returnEmail = this.ValiteEmail(client.Email);
             if (string.IsNullOrEmpty(client.Name))
                 return ServiceResult.Fail("Preencha o nome!");
-            if (!string.IsNullOrEmpty(returnPassword))
-                return ServiceResult.Fail("Senha Inválida!" + returnPassword);
             if (!string.IsNullOrEmpty(returnEmail))
                 return ServiceResult.Fail("E-mail Inválido!" + returnEmail);
             if (client.IdAccessProfile == 0)
                 return ServiceResult.Fail("Preencha o perfil do usuário!");
-            var existing = _clientRepository.GetByUser(client.ClientUser).ToList();
-            if (existing.Count() > 0)
-                return ServiceResult.Fail("clientUser já existe na base!");
-
-            client.Password = BCrypt.Net.BCrypt.HashPassword(client.Password);
+            _userService.Add(client.User);
             _clientRepository.Add(_mapper.Map<Client>(client));
             return ServiceResult.Ok(client);
         }
@@ -62,18 +59,5 @@ namespace FCGProj.Services
             return retorno;
         }
 
-        private string ValitePassword(string password)
-        {
-            var retorno = "";
-            if (string.IsNullOrEmpty(password) || password.Length < 8)
-                retorno += "Senha deve conter 8 caracteres ou mais.";
-            if (Regex.Matches(password, @"[^\p{L}\p{Nd}\s]").Count == 0)
-                retorno += "Senha deve conter ao menos um caracter especial.";
-            if (Regex.Matches(password, @"\p{Lu}").Count == 0 || Regex.Matches(password, @"\p{Ll}").Count == 0)
-                retorno += "Senha deve conter letras maiusculas e minusculas.";
-            if (Regex.Matches(password, @"\p{Nd}").Count == 0)
-                retorno += "Senha deve conter ao menos um número.";
-            return retorno;
-        }
     }
 }

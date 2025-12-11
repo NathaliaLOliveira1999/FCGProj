@@ -10,6 +10,7 @@ namespace FCGProj.Models
 
         public DbSet<Client> Clients { get; set; }
         public DbSet<Game> Games { get; set; }
+        public DbSet<User> Users { get; set; }
         public DbSet<ClientAddress> ClientAddress { get; set; }
         public DbSet<AccessProfile> AccessProfile { get; set; }
 
@@ -18,6 +19,7 @@ namespace FCGProj.Models
         {
             modelBuilder.Entity<Client>().HasKey(c => c.IdClient);
             modelBuilder.Entity<Game>().HasKey(g => g.IdGames);
+            modelBuilder.Entity<User>().HasKey(g => g.IdUser);
             modelBuilder.Entity<ClientAddress>().HasKey(ca => ca.IdClientAddress);
             modelBuilder.Entity<AccessProfile>().HasKey(ca => ca.IdAccessProfile);
 
