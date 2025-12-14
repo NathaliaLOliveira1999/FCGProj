@@ -1,8 +1,8 @@
 {
   "openapi": "3.0.4",
   "info": {
-    "title": "FCGProj",
-    "version": "1.0"
+    "title": "FCGProj API",
+    "version": "v1"
   },
   "paths": {
     "/login": {
@@ -244,17 +244,30 @@
       "UserDto": {
         "type": "object",
         "properties": {
-          "user": {
+          "userName": {
             "type": "string",
             "nullable": true
           },
-          "password": {
+          "passwordHash": {
             "type": "string",
             "nullable": true
           }
         },
         "additionalProperties": false
       }
+    },
+    "securitySchemes": {
+      "Bearer": {
+        "type": "http",
+        "description": "Enter 'Bearer {token}' (without quotes). Example: \"Bearer eyJhbGci...\"",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
     }
-  }
+  },
+  "security": [
+    {
+      "Bearer": [ ]
+    }
+  ]
 }

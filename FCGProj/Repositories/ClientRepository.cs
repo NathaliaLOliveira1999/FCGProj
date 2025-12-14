@@ -1,4 +1,5 @@
 ﻿using FCGProj.Interfaces.Repositories;
+using FCGProj.Interfaces.Services;
 using FCGProj.Model;
 using FCGProj.Models;
 
@@ -17,11 +18,26 @@ namespace FCGProj.Repositories
 
         public Client? GetById(int id) => _context.Clients.Find(id);
 
-        public void Add(Client client)
+        public IEnumerable<Client> GetListByEmail(string email)
         {
-            client.DtCreate = DateTime.Now;
-            _context.Clients.Add(client);
-            _context.SaveChanges();
+            var result = _context.Clients.Where(x => x.Email == email.ToLower()).ToList();
+
+            return result ?? Enumerable.Empty<Client>();
+        }
+
+        public ServiceResult Add(Client client)
+        {
+            try
+            {
+                client.DtCreate = DateTime.Now;
+                _context.Clients.Add(client);
+                _context.SaveChanges();
+                return ServiceResult.Ok(client);
+            }
+            catch (Exception ex)
+            {
+                return ServiceResult.Fail("Erro ao inserir cliente: " + ex.Message);
+            }
         }
     }
 }

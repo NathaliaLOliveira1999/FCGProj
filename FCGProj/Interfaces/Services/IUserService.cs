@@ -8,7 +8,7 @@ namespace FCGProj.Interfaces.Services
         UserDto? GetById(int id);
         UserDto? GetByUser(string user);
         List<UserDto> GetListByUser(string user);
-        ServiceResult Add(UserDto user);
+        ServiceResult Add(UserDto user, int idCliente);
         string GenerateToken(UserDto user);
     }
 }

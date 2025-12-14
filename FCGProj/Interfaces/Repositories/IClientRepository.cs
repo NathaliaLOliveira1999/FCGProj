@@ -1,4 +1,5 @@
 ﻿using FCGProj.Model;
+using FCGProj.Models;
 
 namespace FCGProj.Interfaces.Repositories
 {
@@ -6,6 +7,7 @@ namespace FCGProj.Interfaces.Repositories
     {
         IEnumerable<Client> GetAll();
         Client? GetById(int id);
-        void Add(Client client);
+        ServiceResult Add(Client client);
+        IEnumerable<Client> GetListByEmail(string email);
     }
 }

@@ -2,6 +2,7 @@
 using FCGProj.Model;
 using FCGProj.Models;
 using FCGProj.Models.Dto;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FCGProj.Controllers
@@ -17,9 +18,11 @@ namespace FCGProj.Controllers
             _clientService = clientService;
         }
 
+        [Authorize]
         [HttpGet]
         public IActionResult GetAll() => Ok(_clientService.GetAll());
 
+        [Authorize]
         [HttpGet("{id}")]
         public IActionResult GetById(int id)
         {
@@ -29,6 +32,7 @@ namespace FCGProj.Controllers
             return Ok(Client);
         }
 
+        [Authorize]
         [HttpPost]
         public IActionResult Create(ClientDto client)
         {

@@ -16,17 +16,17 @@ namespace FCGProj.Controllers
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] UserDto login)
         {
-            // 1️⃣ Buscar usuário pelo e-mail
+            // 1️ Buscar usuário pelo e-mail
             var user = _userService.GetByUser(login.UserName);
 
             if (user == null)
                 return Unauthorized("Usuário não encontrado");
 
-            // 2️⃣ Validar senha com hash
+            // 2️ Validar senha com hash
             if (!BCrypt.Net.BCrypt.Verify(login.PasswordHash, user.PasswordHash))
                 return Unauthorized("Senha incorreta");
 
-            // 3️⃣ Gerar token JWT
+            // 3️ Gerar token JWT
             var token = _userService.GenerateToken(user);
 
             return Ok(new { token });

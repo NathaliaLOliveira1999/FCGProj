@@ -4,7 +4,7 @@ using FCGProj.Interfaces.Services;
 using FCGProj.Model;
 using FCGProj.Models;
 using FCGProj.Models.Dto;
-using System.Text.RegularExpressions;
+using FCGProj.Repositories;
 
 namespace FCGProj.Services
 {
@@ -33,24 +33,37 @@ namespace FCGProj.Services
 
         public ServiceResult Add(ClientDto client)
         {
-            client.User.UserName = client.User.UserName.ToUpper();
-
-            var returnEmail = this.ValiteEmail(client.Email);
-            if (string.IsNullOrEmpty(client.Name))
-                return ServiceResult.Fail("Preencha o nome!");
-            if (!string.IsNullOrEmpty(returnEmail))
-                return ServiceResult.Fail("E-mail Inválido!" + returnEmail);
-            if (client.IdAccessProfile == 0)
-                return ServiceResult.Fail("Preencha o perfil do usuário!");
-            _userService.Add(client.User);
-            _clientRepository.Add(_mapper.Map<Client>(client));
-            return ServiceResult.Ok(client);
+            try
+            {
+                if (string.IsNullOrEmpty(client.Name))
+                    return ServiceResult.Fail("Preencha o nome!");
+                client.User.UserName = client.User.UserName.ToUpper();
+                client.Email = client.Email.Trim();
+                client.Email = client.Email.ToLower();
+                var returnEmail = this.ValiteEmail(client.Email);
+                if (!string.IsNullOrEmpty(returnEmail))
+                    return ServiceResult.Fail("E-mail Inválido!" + returnEmail);
+                if (client.IdAccessProfile == 0)
+                    return ServiceResult.Fail("Preencha o perfil do usuário!");
+                var insertedClient = _clientRepository.Add(_mapper.Map<Client>(client));
+                if (!insertedClient.Success)
+                    return ServiceResult.Fail(insertedClient.Error ?? "Erro ao inserir cliente.");
+                var insertedUSer = _userService.Add(client.User, ((Client)insertedClient.Data).IdClient);
+                if (!insertedUSer.Success)
+                    return ServiceResult.Fail(insertedUSer.Error ?? "Erro ao inserir usuario.");
+                return ServiceResult.Ok(client);
+            }
+            catch (Exception ex)
+            {
+                return ServiceResult.Fail("Erro ao inserir usuário: " + ex.Message);
+            }
         }
 
         private string ValiteEmail(string email)
         {
-            email = email.Trim();
             var retorno = "";
+            if(_clientRepository.GetListByEmail(email).ToList().Count() >0)
+                retorno += "E-mail já cadastrado.";
             var parts = email.Split('@');
             if (string.IsNullOrEmpty(email))
                 retorno += "E-mail precisa ser preenchido.";

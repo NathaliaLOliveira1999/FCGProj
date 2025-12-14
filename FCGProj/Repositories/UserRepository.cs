@@ -25,11 +25,20 @@ namespace FCGProj.Repositories
             return result ?? Enumerable.Empty<User>();
         }
 
-        public void Add(User user)
+        public ServiceResult Add(User user, int idCliente)
         {
-            user.CreatedAt = DateTime.Now;
-            _context.Users.Add(user);
-            _context.SaveChanges();
+            try
+            {
+                user.IdClient = idCliente;
+                user.CreatedAt = DateTime.Now;
+                _context.Users.Add(user);
+                _context.SaveChanges();
+                return ServiceResult.Ok(user);
+            }
+            catch (Exception ex)
+            {
+                return ServiceResult.Fail("Erro ao inserir usuário: " + ex.Message);
+            }
         }
     }
 }

@@ -40,7 +40,7 @@ namespace FCGProj.Services
             return _mapper.Map<List<UserDto>>(_userRepository.GetListByUser(user));
         }       
 
-        public ServiceResult Add(UserDto user)
+        public ServiceResult Add(UserDto user, int idCliente)
         {
             var returnPassword = this.ValitePassword(user.PasswordHash);
 
@@ -51,7 +51,7 @@ namespace FCGProj.Services
             if (existing.Count() > 0)
                 return ServiceResult.Fail("clientUser já existe na base!");
             user.PasswordHash = BCrypt.Net.BCrypt.HashPassword(user.PasswordHash);
-            _userRepository.Add(_mapper.Map<User>(user));
+            _userRepository.Add(_mapper.Map<User>(user), idCliente);
             return ServiceResult.Ok(user);
         }
 
@@ -65,7 +65,7 @@ namespace FCGProj.Services
               };
 
             var key = new SymmetricSecurityKey(
-                Encoding.UTF8.GetBytes(_config["Jwt:Key"]));
+                Encoding.UTF8.GetBytes("this is my custom Secret key for authentication"));
 
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 

@@ -7,6 +7,6 @@ namespace FCGProj.Interfaces.Repositories
         User? GetById(int id);
         User? GetByUser(string user);
         IEnumerable<User> GetListByUser(string user);
-        void Add(User user);
+        ServiceResult Add(User user, int idCliente);
     }
 }
